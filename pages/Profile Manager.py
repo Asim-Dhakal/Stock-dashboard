@@ -66,19 +66,20 @@ def display_Profile(Profile_list):
     # start value for the loop 
     i=0
     # This is columns to make the buttons next to each other
-    profile_slot_1, profile_slot_2 = st.columns([1,2])
+    profile_slot_1, profile_slot_2 = st.columns([1,1])
 
     #Goes thru all the profiles and displays them. 
     for i in range (0,len(Profile_list),2):
         # these are the two buttons in these columns. They both have a unique key which is vlaue of array + array 
         with profile_slot_1:
-            first_button = st.button(Profile_list[i], key=f"{Profile_list[i]}_{i}",on_click=None, use_container_width= True)
+            first_button = st.button(Profile_list[i], key=f"{Profile_list[i]}_{i}",on_click=None, use_container_width= True )
             # when the button is pressed the profile is removed and new profile without dumped is added to json file 
             if first_button:
                 st.success(f'You have removed profile {Profile_list[i]}' )
                 Profile_list.pop(i)
                 json_dump(Profile_list)
                 st.rerun()
+
         with profile_slot_2:
             if i+1 < len(Profile_list):
                 second_button = st.button(Profile_list[i+1], key=f"{Profile_list[i+1]}_{i+1}", on_click=None, use_container_width=True)
@@ -87,6 +88,9 @@ def display_Profile(Profile_list):
                     Profile_list.pop(i+1)
                     json_dump(Profile_list)
                     st.rerun()
+
+def Max_Profiles():
+    st.write('YOU HAVE REACHED THE MAX AMOUNT OF PROFILES PLEASE DELETE SOME TO MAKE MORE SPACE')
 
 
 def Main():
@@ -97,6 +101,8 @@ def Main():
         if Profile_name != None:
             Profile_list.append(Profile_name)
         json_dump(Profile_list)
+    else: 
+        Max_Profiles()
     display_Profile(remove_whitespace(Profile_list))
 
 Main()
