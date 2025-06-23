@@ -29,11 +29,7 @@ def Config_Of_pagge():
     )
     # This is the head to the page 
     st.title('All Of Your Profiles')
-
-#This sets to true making buttons or inputs disable. 
-def disable():
-    st.session_state.disabled = True
-        
+ 
 # This is the funtion that loads up the profile maker 
 def Makeprofile(list_names):
     if "disabled" not in st.session_state:
@@ -60,20 +56,39 @@ def Makeprofile(list_names):
             return profile_name
     return None
 
-# Displays all the different profiles   
+_ ='''
+This funtion displays all the profiles that we have made using Makeprofile.
+It then displays all the profiles as button and if you press it it deletes the profile. 
+'''
 def display_Profile(Profile_list):
     reg_profile_name = st.form('These are the Profiles you have created: ')
     st.write('These are the Profiles you have created: ')
+    # start value for the loop 
+    i=0
+    # This is columns to make the buttons next to each other
+    profile_slot_1, profile_slot_2 = st.columns([1,2])
 
-    profile_slot_1, profile_slot_2 = st.columns([1,1])
-    list_of_profile = len(Profile_list)
-    for i in range(0,list_of_profile,2):
+    #Goes thru all the profiles and displays them. 
+    for i in range (0,len(Profile_list),2):
+        # these are the two buttons in these columns. They both have a unique key which is vlaue of array + array 
         with profile_slot_1:
-            st.button(Profile_list[i], key=[i])
+            first_button = st.button(Profile_list[i], key=f"{Profile_list[i]}_{i}",on_click=None, use_container_width= True)
+            # when the button is pressed the profile is removed and new profile without dumped is added to json file 
+            if first_button:
+                st.success(f'You have removed profile {Profile_list[i]}' )
+                Profile_list.pop(i)
+                json_dump(Profile_list)
+                st.rerun()
         with profile_slot_2:
-            if i+1 < list_of_profile:
-                st.button(Profile_list[i+1], key=[i+1])
-  
+            if i+1 < len(Profile_list):
+                second_button = st.button(Profile_list[i+1], key=f"{Profile_list[i+1]}_{i+1}", on_click=None, use_container_width=True)
+                if second_button:
+                    st.success(f'You have removed profile {Profile_list[i+1]}' )
+                    Profile_list.pop(i+1)
+                    json_dump(Profile_list)
+                    st.rerun()
+
+
 def Main():
     Config_Of_pagge()
     Profile_list = json_load()
