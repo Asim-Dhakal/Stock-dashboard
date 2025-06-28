@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import json as js
+from Config_functions import Config_Of_page
 
 # Gets list from json file thats under the key 'Profiles' in the dict 
 def json_load():
@@ -20,15 +21,6 @@ def json_dump(Profile_list):
     with open('Profile manager.json', 'w') as file:
         js.dump({'Profiles' : Profile_list}, file)
 
-# This configs out Porfile managter page. It does the heading, the icon and layout 
-def Config_Of_pagge():
-    st.set_page_config(
-        page_title='Profile', 
-        page_icon=':bust_in_silhouette:', 
-        layout='centered'
-    )
-    # This is the head to the page 
-    st.title('All Of Your Profiles')
  
 # This is the funtion that loads up the profile maker 
 def Makeprofile(list_names):
@@ -94,7 +86,7 @@ def Max_Profiles():
 
 
 def Main():
-    Config_Of_pagge()
+    Config_Of_page('Profile',':bust_in_silhouette:','centered','All Of Your Profiles')
     Profile_list = json_load()
     if len(Profile_list) < 20:
         Profile_name = Makeprofile(remove_whitespace(Profile_list))

@@ -3,17 +3,9 @@ import pandas as pd
 import numpy as np 
 import plotly.express as px 
 import warnings 
+from Config_functions import Config_Of_page
 warnings.filterwarnings('ignore')
 
 def Main_page():
-    st.set_page_config(
-        page_title='Home', 
-        page_icon=':bar_chart:', 
-        layout='centered'
-    )
-
-    st.title('Main page')
-    #st.button('Profile Manager', key=None, help=None, on_click=profile(),type='primary')
-    #st.button('Portfolio Manager', key=None, help=None, on_click=p,type='primary')
-
+    Config_Of_page('Home',':bar_chart:','centered','Main page')
 Main_page()
