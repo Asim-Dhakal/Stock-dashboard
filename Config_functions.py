@@ -4,7 +4,11 @@ import streamlit as st
 This is the page configirator it makes the page in streamlit 
 Then it calls it later on when needed in different pahes 
 configs the pages. 
-
+values type: string 
+takes in the title of the tab 
+the icon that shows on the tab bar 
+the layout we want for the page 
+the the title of the page 
 '''
 def Config_Of_page(config_title,config_icon,config_layout,title):
     st.set_page_config(
@@ -15,6 +19,3 @@ def Config_Of_page(config_title,config_icon,config_layout,title):
     )
     st.title(title)
 
-# page_title='Profile'
-# page_icon=':bust_in_silhouette:'
-# layout='centered'
