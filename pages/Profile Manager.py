@@ -2,26 +2,8 @@ import streamlit as st
 import pandas as pd
 import json as js
 from Config_functions import Config_Of_page
+from Json_funtions import json_dump,json_load,remove_whitespace
 
-# Gets list from json file thats under the key 'Profiles' in the dict 
-def json_load():
-    with open('Profile manager.json', 'r') as file:
-        Profile_list = js.load(file)
-        Profiles = Profile_list['Profiles']
-        List_to_return = remove_whitespace(Profiles)
-        return List_to_return
-
-# Removes all '' values from the list to return only valid profile names 
-def remove_whitespace(List_to_return):
-    cleaned_list = [item for item in List_to_return if (item != '') or (item == None)]
-    return cleaned_list
-
-# Writes to the json file and stores all our profile 
-def json_dump(Profile_list):
-    with open('Profile manager.json', 'w') as file:
-        js.dump({'Profiles' : Profile_list}, file)
-
- 
 # This is the funtion that loads up the profile maker 
 def Makeprofile(list_names):
     if "disabled" not in st.session_state:
