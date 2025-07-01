@@ -1,6 +1,6 @@
 import streamlit as st 
 from Config_functions import Config_Of_page
-from Json_funtions import json_dump, json_load, json_manager,Top_50
+from funtions import json_dump, json_load, json_manager,Top_50
 
 if __name__ == "__main__":
     # Initialize session state variable
@@ -37,18 +37,16 @@ def show_stocks():
             with profile_slot_2:
                 if st.button(profile_list[i+1], key=f"profile_{i+1}",use_container_width=True):
                     st.session_state.selected_profile = profile_list[i+1]
-
     # Show form if a profile is selected
     if st.session_state.selected_profile:
-        with st.form("Add Stock Form"):
-            ticker = st.selectbox('Select which stock you want to add', Top_50())
-            stock = st.number_input('How many stocks do you want to add?', 0, 100000000)
+        Temp_pop_up = placeholder = st.empty()
+        with Temp_pop_up.form("Add Stock Form"):
+            ticker = st.selectbox(f'Select which stock you want to add to profile {st.session_state.selected_profile} ', Top_50())
+            stock = st.number_input('How many stocks do you want to add? (Value over 100000000 will be 0)', 0, 100000000)
             submitted = st.form_submit_button('Add stock')
             if submitted:
                 json_manager(ticker,st.session_state.selected_profile, stock)
-                st.success(f'Added {stock} shares of {ticker} to profile {st.session_state.selected_profile}')
-                st.session_state.selected_profile = False
-
+                Temp_pop_up.empty()
 main()
 
 

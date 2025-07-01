@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import json as js
 from Config_functions import Config_Of_page
-from Json_funtions import json_dump,json_load,remove_whitespace, json_manager
+from funtions import json_dump,json_load,remove_whitespace, json_manager
 
 # This is the funtion that loads up the profile maker 
 def Makeprofile(list_names):

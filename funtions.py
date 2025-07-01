@@ -1,6 +1,8 @@
 import json as js
-import pandas as pd
 import streamlit as st
+import pandas as pd 
+import yfinance as yf 
+
 ''' 
 So this fine gets all the profiles by defult 
 It opens the profile manager file and then within the dict in it gets the values in the profiles key 
