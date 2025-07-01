@@ -1,6 +1,6 @@
 import json as js
 import pandas as pd
-
+import streamlit as st
 ''' 
 So this fine gets all the profiles by defult 
 It opens the profile manager file and then within the dict in it gets the values in the profiles key 
@@ -47,15 +47,16 @@ def json_manager(Ticker = None,Profile_name = None, share = 0):
     
     keys_to_remove = [key for key in saved_profiles if key not in all_profiles]
     for key in keys_to_remove:
-        saved_profiles.pop(key)    
+        saved_profiles.pop(key)   
     for profile in all_profiles:
         if profile not in saved_profiles:
-            saved_profiles[profile]
+            saved_profiles[profile] = {}
     json_dump(None,None,'Profile_with_stocks.json',saved_profiles)
-    
-    if Ticker != None:
+    if Profile_name != None:
         saved_profiles[Profile_name].update({Ticker:share})
-    json_dump(None,None,'Profile_with_stocks.json',saved_profiles)    
+        json_dump(None,None,'Profile_with_stocks.json',saved_profiles)     
+    saved_profiles = json_load('Profile_with_stocks.json',None)
+    
     return saved_profiles
 
 '''
@@ -72,4 +73,3 @@ def Top_50():
     ]
     return top_50_tech_tickers
 
-json_manager()
